@@ -1,0 +1,14 @@
+@hostname = http://localhost:3300
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDE2OTQxMjcsInNlc3Npb25faWQiOiI3YmRiYmI1Yy1lMzZlLTQ3YzktOTEyMy1mMmNkMjg3MGFhNWQifQ.P38sjMc_nd4svwhEuSf5C3zJVK6h7d2wbuGeZhRwEQE
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDEwOTQ3MTUsInNlc3Npb25faWQiOiI3YmRiYmI1Yy1lMzZlLTQ3YzktOTEyMy1mMmNkMjg3MGFhNWQifQ.W10AFr2Bithcvvy5k8LAgwVk_fDT0PRTy0ntEtnlpag
+
+@admin_secret_key = sA3ZespJHfAfANEuO3eUqZomEvLUt5b4_OKELLO+GERALD
+
+###
+
+# @name GetPlans
+
+GET {{hostname}}/api
+content-type: application/json
+
+###
