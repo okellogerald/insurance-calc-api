@@ -1,9 +1,9 @@
 package main
 
 import (
-	"alliance-calc-api/db"
-	"alliance-calc-api/initializers"
-	"alliance-calc-api/logs"
+	"insurance-calc-api/db"
+	"insurance-calc-api/initializers"
+	"insurance-calc-api/logs"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"

@@ -1,4 +1,4 @@
-module alliance-calc-api
+module insurance-calc-api
 
 go 1.21.4
 

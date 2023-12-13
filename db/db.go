@@ -1,7 +1,7 @@
 package db
 
 import (
-	"alliance-calc-api/logs"
+	"insurance-calc-api/logs"
 	"os"
 
 	"gorm.io/driver/postgres"

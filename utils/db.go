@@ -1,8 +1,6 @@
 package utils
 
-import (
-	db "auth/db"
-)
+import "insurance-calc-api/db"
 
 func IsRecordNotFoundError(err error) bool {
 	if err == nil {
