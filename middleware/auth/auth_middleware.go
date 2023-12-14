@@ -3,31 +3,53 @@ package authMiddleware
 import (
 	"encoding/json"
 	"insurance-calc-api/context"
+	"io"
+	"net/http"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func ValidateSession(c *fiber.Ctx) error {
 	ctx := context.New(c)
-	// validate session first
-	agent := fiber.Post("http://localhost:3000/api/validate_session")
 
-	token := c.Get("Authorization")
-	agent.Request().Header.Add("Authorization", token)
-	statusCode, body, errs := agent.Bytes()
-	if statusCode != 200 {
-		return ctx.SendErrorMessage(statusCode, "Please make sure you're authorized")
+	// validate session first
+	client := &http.Client{
+		Timeout: 10 * time.Second,
 	}
-	if len(errs) > 0 {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"errs": errs,
-		})
+
+	// Create a request object
+	req, err := http.NewRequest(http.MethodPost, "http://localhost:3000/api/validate_session", nil)
+	if err != nil {
+		return ctx.SendInternalServerError(err)
+	}
+
+	// Set headers 
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", c.Get("Authorization"))
+
+	// Send the request
+	res, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer res.Body.Close()
+
+	// Process the response
+	if res.StatusCode != http.StatusOK {
+		return ctx.SendErrorMessage(res.StatusCode, "Please make sure you're authorized")
+	}
+
+	// Read the response body
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return ctx.SendInternalServerError(err)
 	}
 
 	var data = struct {
 		UserID uint `json:"user_id"`
 	}{}
-	err := json.Unmarshal(body, &data)
+	err = json.Unmarshal(body, &data)
 	if err != nil {
 		return ctx.SendInternalServerError(err)
 	}
